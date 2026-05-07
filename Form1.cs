@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-namespace DesktopColorSampler
+namespace ColorLoupe
 {
     /// <summary>
     /// 
@@ -33,12 +33,12 @@ namespace DesktopColorSampler
         /// <summary>
         /// 
         /// </summary>
-        private int hMouseHook;
+        private IntPtr hMouseHook;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        private int hKeyboardHook;
+        private IntPtr hKeyboardHook;
 
         /// <summary>
         /// 
@@ -110,11 +110,12 @@ namespace DesktopColorSampler
         /// <param name="wParam"></param>
         /// <param name="lParam"></param>
         /// <returns></returns>
-        private int MouseHookProc(int nCode, int wParam, IntPtr lParam)
+        private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (this.capturing)
             {
-                Color color = this.UpdateBitmap();
+                var hookStruct = (NativeMethods.MOUSEHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(NativeMethods.MOUSEHOOKSTRUCT));
+                Color color = this.UpdateBitmap(hookStruct.pt.x, hookStruct.pt.y);
                 this.SetColor(color);
                 this.pressSpaceMessageBox.Text = freezeText;
             }
@@ -129,9 +130,9 @@ namespace DesktopColorSampler
         /// <param name="wParam"></param>
         /// <param name="lParam"></param>
         /// <returns></returns>
-        private int KeyboardHookProc(int nCode, int wParam, IntPtr lParam)
+        private IntPtr KeyboardHookProc(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (wParam == NativeMethods.WM_KEYDOWN)
+            if ((int)wParam == NativeMethods.WM_KEYDOWN)
             {
                 // Getting mouse data from a Win32 structure
                 var keyboardInfo = (NativeMethods.KEYBOARDHOOKSTRUCT)Marshal.PtrToStructure(
@@ -149,7 +150,7 @@ namespace DesktopColorSampler
                     this.pressSpaceMessageBox.Text = this.capturing ? freezeText : wanderText;
                 }
             }
-            else if (wParam == NativeMethods.WM_KEYUP)
+            else if ((int)wParam == NativeMethods.WM_KEYUP)
             {
                 // Getting mouse data from a Win32 structure
                 var keyboardInfo = (NativeMethods.KEYBOARDHOOKSTRUCT)Marshal.PtrToStructure(
@@ -225,33 +226,28 @@ namespace DesktopColorSampler
         /// <summary>
         /// 
         /// </summary>
-        private Color UpdateBitmap()
+        private Color UpdateBitmap(int x, int y)
         {
             if (this.zoomOn.Checked)
             {
-                return UpdateBitmap(this.bitmap);
+                return UpdateBitmap(this.bitmap, x, y);
             }
             else
             {
                 using(Bitmap tmpBitmap = new Bitmap(this.bitmap.Size.Width, this.bitmap.Size.Height))
                 {
-                    return UpdateBitmap(tmpBitmap);
+                    return UpdateBitmap(tmpBitmap, x, y);
                 }
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
-        private static Color UpdateBitmap(Bitmap bitmap)
+        private static Color UpdateBitmap(Bitmap bitmap, int x, int y)
         {
             using (Graphics g = Graphics.FromImage(bitmap as Image))
             {
                 int half_w = bitmap.Size.Width / 2;
                 int half_h = bitmap.Size.Height / 2;
-                g.CopyFromScreen(MousePosition.X - half_w, MousePosition.Y - half_h, 0, 0, bitmap.Size);
+                g.CopyFromScreen(x - half_w, y - half_h, 0, 0, bitmap.Size);
                 return bitmap.GetPixel(half_w, half_h);
             }
         }

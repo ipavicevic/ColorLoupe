@@ -1,4 +1,4 @@
-﻿namespace DesktopColorSampler
+﻿namespace ColorLoupe
 {
     partial class Form1
     {
@@ -176,7 +176,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "DESKTOP COLOR SAMPLER";
+            this.Text = "COLOR LOUPE";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopColorSampler", "DesktopColorSampler.csproj", "{BABA0633-35FC-4566-AE49-A0BC4763FA0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorLoupe", "ColorLoupe.csproj", "{BABA0633-35FC-4566-AE49-A0BC4763FA0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

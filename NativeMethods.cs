@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace DesktopColorSampler
+namespace ColorLoupe
 {
     internal static class NativeMethods
     {
@@ -62,15 +62,15 @@ namespace DesktopColorSampler
             public int dwExtraInfo;
         }
 
-        public delegate int HookProcDelegate(int nCode, int wParam, IntPtr lParam);
+        public delegate IntPtr HookProcDelegate(int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall, SetLastError = true)]
-        public static extern int SetWindowsHookEx(int idHook, HookProcDelegate lpfn, IntPtr hMod, int dwThreadId);
+        public static extern IntPtr SetWindowsHookEx(int idHook, HookProcDelegate lpfn, IntPtr hMod, int dwThreadId);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        public static extern int CallNextHookEx(int idHook, int nCode, int wParam, IntPtr lParam);
+        public static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall, SetLastError = true)]
-        public static extern int UnhookWindowsHookEx(int idHook);
+        public static extern int UnhookWindowsHookEx(IntPtr idHook);
     }
 }
