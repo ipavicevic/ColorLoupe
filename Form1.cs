@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace ColorLoupe
 {
@@ -75,6 +76,8 @@ namespace ColorLoupe
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.copyHexButton.Text = "";
+            this.copyRgbButton.Text = "";
             this.brush = new SolidBrush(Color.White);
             this.bitmap = new Bitmap(this.zoom.Width / 10, this.zoom.Height / 10);
             using(var g = Graphics.FromImage(this.bitmap as Image))
@@ -197,7 +200,7 @@ namespace ColorLoupe
         /// <param name="color"></param>
         private void SetColor(Color color)
         {
-            this.hexValue.Text = string.Format("{0:X02}{1:X02}{2:X02}", color.R, color.G, color.B);
+            this.hexValue.Text = string.Format("#{0:X02}{1:X02}{2:X02}", color.R, color.G, color.B);
             this.rgbValue.Text = string.Format("{0,3},{1,3},{2,3}", color.R, color.G, color.B);
             this.brush = new SolidBrush(color);
             this.colorSample.Invalidate();
@@ -284,6 +287,25 @@ namespace ColorLoupe
         {
             this.zoom.Invalidate();
             this.label1.Focus();
+        }
+
+        private void copyHexButton_Click(object sender, EventArgs e)
+        {
+            CopyToClipboard(this.hexValue, this.hexValue.Text);
+        }
+
+        private void copyRgbButton_Click(object sender, EventArgs e)
+        {
+            CopyToClipboard(this.rgbValue, this.rgbValue.Text.Trim());
+        }
+
+        private async void CopyToClipboard(TextBox box, string value)
+        {
+            Clipboard.SetText(value);
+            string original = box.Text;
+            box.Text = "Copied!";
+            await Task.Delay(800);
+            box.Text = original;
         }
     }
 }

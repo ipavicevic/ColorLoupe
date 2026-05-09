@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             this.hexValue = new System.Windows.Forms.TextBox();
+            this.copyHexButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.rgbValue = new System.Windows.Forms.TextBox();
+            this.copyRgbButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.pressSpaceMessageBox = new System.Windows.Forms.Label();
             this.colorSample = new System.Windows.Forms.Label();
@@ -52,7 +54,20 @@
             this.hexValue.Size = new System.Drawing.Size(150, 26);
             this.hexValue.TabIndex = 0;
             this.hexValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
+            //
+            // copyHexButton
+            //
+            this.copyHexButton.FlatAppearance.BorderSize = 0;
+            this.copyHexButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.copyHexButton.Font = new System.Drawing.Font("Segoe MDL2 Assets", 11F);
+            this.copyHexButton.Location = new System.Drawing.Point(164, 95);
+            this.copyHexButton.Name = "copyHexButton";
+            this.copyHexButton.Size = new System.Drawing.Size(26, 26);
+            this.copyHexButton.TabIndex = 20;
+            this.copyHexButton.Text = "";
+            this.copyHexButton.UseVisualStyleBackColor = true;
+            this.copyHexButton.Click += new System.EventHandler(this.copyHexButton_Click);
+            //
             // label1
             // 
             this.label1.AutoSize = true;
@@ -81,11 +96,24 @@
             this.rgbValue.Size = new System.Drawing.Size(150, 26);
             this.rgbValue.TabIndex = 3;
             this.rgbValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
+            //
+            // copyRgbButton
+            //
+            this.copyRgbButton.FlatAppearance.BorderSize = 0;
+            this.copyRgbButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.copyRgbButton.Font = new System.Drawing.Font("Segoe MDL2 Assets", 11F);
+            this.copyRgbButton.Location = new System.Drawing.Point(164, 25);
+            this.copyRgbButton.Name = "copyRgbButton";
+            this.copyRgbButton.Size = new System.Drawing.Size(26, 26);
+            this.copyRgbButton.TabIndex = 21;
+            this.copyRgbButton.Text = "";
+            this.copyRgbButton.UseVisualStyleBackColor = true;
+            this.copyRgbButton.Click += new System.EventHandler(this.copyRgbButton_Click);
+            //
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(174, 9);
+            this.label3.Location = new System.Drawing.Point(202, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 13);
             this.label3.TabIndex = 5;
@@ -106,7 +134,7 @@
             // 
             this.colorSample.BackColor = System.Drawing.Color.White;
             this.colorSample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorSample.Location = new System.Drawing.Point(168, 25);
+            this.colorSample.Location = new System.Drawing.Point(196, 25);
             this.colorSample.Name = "colorSample";
             this.colorSample.Size = new System.Drawing.Size(100, 100);
             this.colorSample.TabIndex = 10;
@@ -116,7 +144,7 @@
             // 
             this.editColorButton.Enabled = false;
             this.editColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.editColorButton.Location = new System.Drawing.Point(168, 128);
+            this.editColorButton.Location = new System.Drawing.Point(196, 128);
             this.editColorButton.Name = "editColorButton";
             this.editColorButton.Size = new System.Drawing.Size(100, 23);
             this.editColorButton.TabIndex = 11;
@@ -128,7 +156,7 @@
             // 
             this.zoom.BackColor = System.Drawing.Color.White;
             this.zoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.zoom.Location = new System.Drawing.Point(274, 25);
+            this.zoom.Location = new System.Drawing.Point(302, 25);
             this.zoom.Name = "zoom";
             this.zoom.Size = new System.Drawing.Size(100, 100);
             this.zoom.TabIndex = 12;
@@ -137,7 +165,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(281, 9);
+            this.label5.Location = new System.Drawing.Point(309, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 13);
             this.label5.TabIndex = 13;
@@ -148,7 +176,7 @@
             this.zoomOn.AutoSize = true;
             this.zoomOn.Checked = true;
             this.zoomOn.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.zoomOn.Location = new System.Drawing.Point(274, 132);
+            this.zoomOn.Location = new System.Drawing.Point(302, 132);
             this.zoomOn.Name = "zoomOn";
             this.zoomOn.Size = new System.Drawing.Size(77, 17);
             this.zoomOn.TabIndex = 14;
@@ -160,7 +188,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 227);
+            this.ClientSize = new System.Drawing.Size(411, 227);
             this.Controls.Add(this.zoomOn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.zoom);
@@ -168,6 +196,8 @@
             this.Controls.Add(this.colorSample);
             this.Controls.Add(this.pressSpaceMessageBox);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.copyRgbButton);
+            this.Controls.Add(this.copyHexButton);
             this.Controls.Add(this.rgbValue);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -188,9 +218,11 @@
         #endregion
 
         private System.Windows.Forms.TextBox hexValue;
+        private System.Windows.Forms.Button copyHexButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox rgbValue;
+        private System.Windows.Forms.Button copyRgbButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label pressSpaceMessageBox;
         private System.Windows.Forms.Label colorSample;
