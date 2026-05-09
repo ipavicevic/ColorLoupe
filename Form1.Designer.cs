@@ -127,7 +127,7 @@
             this.pressSpaceMessageBox.Name = "pressSpaceMessageBox";
             this.pressSpaceMessageBox.Size = new System.Drawing.Size(264, 26);
             this.pressSpaceMessageBox.TabIndex = 8;
-            this.pressSpaceMessageBox.Text = "Move the mouse around...";
+            this.pressSpaceMessageBox.Text = "Ctrl + / to freeze...";
             this.pressSpaceMessageBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // colorSample
