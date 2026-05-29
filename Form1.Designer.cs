@@ -42,6 +42,7 @@
             this.colorSample = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.editColorButton = new System.Windows.Forms.Button();
+            this.revertColorButton = new System.Windows.Forms.Button();
             this.zoom = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.zoomOn = new System.Windows.Forms.CheckBox();
@@ -181,11 +182,23 @@
             this.editColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editColorButton.Location = new System.Drawing.Point(196, 128);
             this.editColorButton.Name = "editColorButton";
-            this.editColorButton.Size = new System.Drawing.Size(100, 23);
+            this.editColorButton.Size = new System.Drawing.Size(48, 23);
             this.editColorButton.TabIndex = 11;
-            this.editColorButton.Text = "EDIT COLOR";
+            this.editColorButton.Text = "EDIT";
             this.editColorButton.UseVisualStyleBackColor = true;
             this.editColorButton.Click += new System.EventHandler(this.button1_Click);
+            //
+            // revertColorButton
+            //
+            this.revertColorButton.Enabled = false;
+            this.revertColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.revertColorButton.Location = new System.Drawing.Point(248, 128);
+            this.revertColorButton.Name = "revertColorButton";
+            this.revertColorButton.Size = new System.Drawing.Size(48, 23);
+            this.revertColorButton.TabIndex = 25;
+            this.revertColorButton.Text = "REVERT";
+            this.revertColorButton.UseVisualStyleBackColor = true;
+            this.revertColorButton.Click += new System.EventHandler(this.revertColorButton_Click);
             // 
             // zoom
             // 
@@ -227,6 +240,7 @@
             this.Controls.Add(this.zoomOn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.zoom);
+            this.Controls.Add(this.revertColorButton);
             this.Controls.Add(this.editColorButton);
             this.Controls.Add(this.colorSample);
             this.Controls.Add(this.pressSpaceMessageBox);
@@ -269,6 +283,7 @@
         private System.Windows.Forms.Label colorSample;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button editColorButton;
+        private System.Windows.Forms.Button revertColorButton;
         private System.Windows.Forms.Label zoom;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox zoomOn;

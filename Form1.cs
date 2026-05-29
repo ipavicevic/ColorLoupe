@@ -57,9 +57,14 @@ namespace ColorLoupe
         private Bitmap bitmap = null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private SolidBrush brush = null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        private Color originalColor = Color.White;
 
         /// <summary>
         /// 
@@ -120,6 +125,7 @@ namespace ColorLoupe
             {
                 var hookStruct = (NativeMethods.MOUSEHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(NativeMethods.MOUSEHOOKSTRUCT));
                 Color color = this.UpdateBitmap(hookStruct.pt.x, hookStruct.pt.y);
+                this.originalColor = color;
                 this.SetColor(color);
                 this.pressSpaceMessageBox.Text = freezeText;
             }
@@ -151,6 +157,7 @@ namespace ColorLoupe
                 {
                     this.capturing = !this.capturing;
                     this.editColorButton.Enabled = !this.capturing;
+                    this.revertColorButton.Enabled = !this.capturing;
                     this.pressSpaceMessageBox.Text = this.capturing ? freezeText : wanderText;
                 }
             }
@@ -285,13 +292,22 @@ namespace ColorLoupe
         /// <param name="e"></param>
         private void colorSample_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(this.brush, e.ClipRectangle);
+            var ctrl = (Control)sender;
+            int half = ctrl.Width / 2;
+            using (var ob = new SolidBrush(this.originalColor))
+                e.Graphics.FillRectangle(ob, 0, 0, half, ctrl.Height);
+            e.Graphics.FillRectangle(this.brush, half, 0, ctrl.Width - half, ctrl.Height);
         }
 
         private void zoomOn_CheckedChanged(object sender, EventArgs e)
         {
             this.zoom.Invalidate();
             this.label1.Focus();
+        }
+
+        private void revertColorButton_Click(object sender, EventArgs e)
+        {
+            this.SetColor(this.originalColor);
         }
 
         private void copyHexButton_Click(object sender, EventArgs e)
