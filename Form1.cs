@@ -275,14 +275,24 @@ namespace ColorLoupe
         private void zoom_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            e.Graphics.DrawImage(bitmap as Image, new Rectangle(0, 0, this.zoom.Width + 3, this.zoom.Height + 3));
-            if (this.zoomOn.Checked)
-            {
-                e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
-                e.Graphics.DrawLine(Pens.Black, this.zoom.Width / 2 + 1, 0, this.zoom.Width / 2 + 1, this.zoom.Height);
-                e.Graphics.DrawLine(Pens.Black, 0, this.zoom.Height / 2 + 1, this.zoom.Width, this.zoom.Height / 2 + 1);
+            e.Graphics.DrawImage(bitmap as Image, new Rectangle(0, 0, this.zoom.Width, this.zoom.Height));
 
-            }
+            int pixelW = this.zoom.Width / this.bitmap.Width;
+            int pixelH = this.zoom.Height / this.bitmap.Height;
+            int cx = (this.bitmap.Width / 2) * pixelW;
+            int cy = (this.bitmap.Height / 2) * pixelH;
+
+            Color center = this.bitmap.GetPixel(this.bitmap.Width / 2, this.bitmap.Height / 2);
+            Pen crosshairPen = center.GetBrightness() > 0.5f ? Pens.Black : Pens.White;
+
+            // horizontal and vertical lines, with a gap around the center square
+            e.Graphics.DrawLine(crosshairPen, 0, cy + pixelH / 2, cx - 1, cy + pixelH / 2);
+            e.Graphics.DrawLine(crosshairPen, cx + pixelW, cy + pixelH / 2, this.zoom.Width, cy + pixelH / 2);
+            e.Graphics.DrawLine(crosshairPen, cx + pixelW / 2, 0, cx + pixelW / 2, cy - 1);
+            e.Graphics.DrawLine(crosshairPen, cx + pixelW / 2, cy + pixelH, cx + pixelW / 2, this.zoom.Height);
+
+            // square outline around center pixel
+            e.Graphics.DrawRectangle(crosshairPen, cx, cy, pixelW - 1, pixelH - 1);
         }
 
         /// <summary>
