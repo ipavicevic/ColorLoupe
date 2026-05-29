@@ -34,6 +34,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.rgbValue = new System.Windows.Forms.TextBox();
             this.copyRgbButton = new System.Windows.Forms.Button();
+            this.labelHsl = new System.Windows.Forms.Label();
+            this.hslValue = new System.Windows.Forms.TextBox();
+            this.copyHslButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.pressSpaceMessageBox = new System.Windows.Forms.Label();
             this.colorSample = new System.Windows.Forms.Label();
@@ -67,6 +70,38 @@
             this.copyHexButton.Text = "";
             this.copyHexButton.UseVisualStyleBackColor = true;
             this.copyHexButton.Click += new System.EventHandler(this.copyHexButton_Click);
+            //
+            // labelHsl
+            //
+            this.labelHsl.AutoSize = true;
+            this.labelHsl.Location = new System.Drawing.Point(14, 149);
+            this.labelHsl.Name = "labelHsl";
+            this.labelHsl.TabIndex = 22;
+            this.labelHsl.Text = "HSL";
+            //
+            // hslValue
+            //
+            this.hslValue.BackColor = System.Drawing.Color.White;
+            this.hslValue.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hslValue.Location = new System.Drawing.Point(12, 165);
+            this.hslValue.Name = "hslValue";
+            this.hslValue.ReadOnly = true;
+            this.hslValue.Size = new System.Drawing.Size(150, 26);
+            this.hslValue.TabIndex = 23;
+            this.hslValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            //
+            // copyHslButton
+            //
+            this.copyHslButton.FlatAppearance.BorderSize = 0;
+            this.copyHslButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.copyHslButton.Font = new System.Drawing.Font("Segoe MDL2 Assets", 11F);
+            this.copyHslButton.Location = new System.Drawing.Point(164, 165);
+            this.copyHslButton.Name = "copyHslButton";
+            this.copyHslButton.Size = new System.Drawing.Size(26, 26);
+            this.copyHslButton.TabIndex = 24;
+            this.copyHslButton.Text = "";
+            this.copyHslButton.UseVisualStyleBackColor = true;
+            this.copyHslButton.Click += new System.EventHandler(this.copyHslButton_Click);
             //
             // label1
             // 
@@ -123,7 +158,7 @@
             // 
             this.pressSpaceMessageBox.AutoSize = true;
             this.pressSpaceMessageBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pressSpaceMessageBox.Location = new System.Drawing.Point(12, 178);
+            this.pressSpaceMessageBox.Location = new System.Drawing.Point(12, 208);
             this.pressSpaceMessageBox.Name = "pressSpaceMessageBox";
             this.pressSpaceMessageBox.Size = new System.Drawing.Size(264, 26);
             this.pressSpaceMessageBox.TabIndex = 8;
@@ -188,7 +223,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 227);
+            this.ClientSize = new System.Drawing.Size(411, 257);
             this.Controls.Add(this.zoomOn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.zoom);
@@ -196,6 +231,9 @@
             this.Controls.Add(this.colorSample);
             this.Controls.Add(this.pressSpaceMessageBox);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.copyHslButton);
+            this.Controls.Add(this.hslValue);
+            this.Controls.Add(this.labelHsl);
             this.Controls.Add(this.copyRgbButton);
             this.Controls.Add(this.copyHexButton);
             this.Controls.Add(this.rgbValue);
@@ -223,6 +261,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox rgbValue;
         private System.Windows.Forms.Button copyRgbButton;
+        private System.Windows.Forms.Label labelHsl;
+        private System.Windows.Forms.TextBox hslValue;
+        private System.Windows.Forms.Button copyHslButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label pressSpaceMessageBox;
         private System.Windows.Forms.Label colorSample;

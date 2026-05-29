@@ -78,6 +78,7 @@ namespace ColorLoupe
         {
             this.copyHexButton.Text = "";
             this.copyRgbButton.Text = "";
+            this.copyHslButton.Text = "";
             this.brush = new SolidBrush(Color.White);
             this.bitmap = new Bitmap(this.zoom.Width / 10, this.zoom.Height / 10);
             using(var g = Graphics.FromImage(this.bitmap as Image))
@@ -202,6 +203,10 @@ namespace ColorLoupe
         {
             this.hexValue.Text = string.Format("#{0:X02}{1:X02}{2:X02}", color.R, color.G, color.B);
             this.rgbValue.Text = string.Format("{0,3},{1,3},{2,3}", color.R, color.G, color.B);
+            this.hslValue.Text = string.Format("{0}°, {1}%, {2}%",
+                (int)color.GetHue(),
+                (int)Math.Round(color.GetSaturation() * 100),
+                (int)Math.Round(color.GetBrightness() * 100));
             this.brush = new SolidBrush(color);
             this.colorSample.Invalidate();
             this.zoom.Invalidate();
@@ -297,6 +302,11 @@ namespace ColorLoupe
         private void copyRgbButton_Click(object sender, EventArgs e)
         {
             CopyToClipboard(this.rgbValue, this.rgbValue.Text.Trim());
+        }
+
+        private void copyHslButton_Click(object sender, EventArgs e)
+        {
+            CopyToClipboard(this.hslValue, this.hslValue.Text.Trim());
         }
 
         private async void CopyToClipboard(TextBox box, string value)
