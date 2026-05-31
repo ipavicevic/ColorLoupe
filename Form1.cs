@@ -17,9 +17,13 @@ namespace ColorLoupe
         private const string freezeText = "Ctrl + / to freeze...";
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private const string wanderText = "Ctrl + / to unfreeze...";
+
+        private const int ZoomPanelSize = 110;
+        private const int ZoomScale = 10;
+        private const int ZoomCaptureSize = ZoomPanelSize / ZoomScale + 1; // 11 — odd for clean center pixel
 
         /// <summary>
         /// 
@@ -85,7 +89,9 @@ namespace ColorLoupe
             this.copyRgbButton.Text = "";
             this.copyHslButton.Text = "";
             this.brush = new SolidBrush(Color.White);
-            this.bitmap = new Bitmap(this.zoom.Width / 10, this.zoom.Height / 10);
+            this.zoom.Size = new Size(ZoomPanelSize, ZoomPanelSize);
+            this.colorSample.Size = new Size(ZoomPanelSize, ZoomPanelSize);
+            this.bitmap = new Bitmap(ZoomCaptureSize, ZoomCaptureSize);
             using(var g = Graphics.FromImage(this.bitmap as Image))
             {
                 g.FillRectangle(this.brush, 0, 0, this.bitmap.Width, this.bitmap.Height);
@@ -274,25 +280,31 @@ namespace ColorLoupe
         /// <param name="e"></param>
         private void zoom_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            e.Graphics.DrawImage(bitmap as Image, new Rectangle(0, 0, this.zoom.Width, this.zoom.Height));
+            const float panelCx = ZoomPanelSize / 2.0f;
+            const float panelCy = ZoomPanelSize / 2.0f;
+            const float scale = ZoomScale;
 
-            int pixelW = this.zoom.Width / this.bitmap.Width;
-            int pixelH = this.zoom.Height / this.bitmap.Height;
-            int cx = (this.bitmap.Width / 2) * pixelW;
-            int cy = (this.bitmap.Height / 2) * pixelH;
+            // image fills panel exactly: ZoomCaptureSize * ZoomScale = ZoomPanelSize
+            // cursor pixel (bitmap center) lands at panel center
+            float imgX = panelCx - (ZoomCaptureSize / 2.0f) * scale;
+            float imgY = panelCy - (ZoomCaptureSize / 2.0f) * scale;
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            e.Graphics.DrawImage(bitmap as Image, new RectangleF(imgX, imgY, this.bitmap.Width * scale, this.bitmap.Height * scale));
 
             Color center = this.bitmap.GetPixel(this.bitmap.Width / 2, this.bitmap.Height / 2);
             Pen crosshairPen = center.GetBrightness() > 0.5f ? Pens.Black : Pens.White;
 
-            // horizontal and vertical lines, with a gap around the center square
-            e.Graphics.DrawLine(crosshairPen, 0, cy + pixelH / 2, cx - 1, cy + pixelH / 2);
-            e.Graphics.DrawLine(crosshairPen, cx + pixelW, cy + pixelH / 2, this.zoom.Width, cy + pixelH / 2);
-            e.Graphics.DrawLine(crosshairPen, cx + pixelW / 2, 0, cx + pixelW / 2, cy - 1);
-            e.Graphics.DrawLine(crosshairPen, cx + pixelW / 2, cy + pixelH, cx + pixelW / 2, this.zoom.Height);
+            float cx = panelCx - scale / 2;
+            float cy = panelCy - scale / 2;
+
+            // horizontal and vertical lines with gap around center square
+            e.Graphics.DrawLine(crosshairPen, 0, panelCy, cx - 1, panelCy);
+            e.Graphics.DrawLine(crosshairPen, cx + scale, panelCy, ZoomPanelSize, panelCy);
+            e.Graphics.DrawLine(crosshairPen, panelCx, 0, panelCx, cy - 1);
+            e.Graphics.DrawLine(crosshairPen, panelCx, cy + scale, panelCx, ZoomPanelSize);
 
             // square outline around center pixel
-            e.Graphics.DrawRectangle(crosshairPen, cx, cy, pixelW - 1, pixelH - 1);
+            e.Graphics.DrawRectangle(crosshairPen, cx, cy, scale - 1, scale - 1);
         }
 
         /// <summary>

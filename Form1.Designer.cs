@@ -172,7 +172,7 @@
             this.colorSample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorSample.Location = new System.Drawing.Point(196, 25);
             this.colorSample.Name = "colorSample";
-            this.colorSample.Size = new System.Drawing.Size(100, 100);
+            this.colorSample.Size = new System.Drawing.Size(110, 110);
             this.colorSample.TabIndex = 10;
             this.colorSample.Paint += new System.Windows.Forms.PaintEventHandler(this.colorSample_Paint);
             // 
@@ -180,7 +180,7 @@
             // 
             this.editColorButton.Enabled = false;
             this.editColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.editColorButton.Location = new System.Drawing.Point(196, 128);
+            this.editColorButton.Location = new System.Drawing.Point(196, 138);
             this.editColorButton.Name = "editColorButton";
             this.editColorButton.Size = new System.Drawing.Size(48, 23);
             this.editColorButton.TabIndex = 11;
@@ -192,7 +192,7 @@
             //
             this.revertColorButton.Enabled = false;
             this.revertColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.revertColorButton.Location = new System.Drawing.Point(248, 128);
+            this.revertColorButton.Location = new System.Drawing.Point(248, 138);
             this.revertColorButton.Name = "revertColorButton";
             this.revertColorButton.Size = new System.Drawing.Size(48, 23);
             this.revertColorButton.TabIndex = 25;
@@ -204,16 +204,16 @@
             // 
             this.zoom.BackColor = System.Drawing.Color.White;
             this.zoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.zoom.Location = new System.Drawing.Point(302, 25);
+            this.zoom.Location = new System.Drawing.Point(312, 25);
             this.zoom.Name = "zoom";
-            this.zoom.Size = new System.Drawing.Size(100, 100);
+            this.zoom.Size = new System.Drawing.Size(110, 110);
             this.zoom.TabIndex = 12;
             this.zoom.Paint += new System.Windows.Forms.PaintEventHandler(this.zoom_Paint);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(309, 9);
+            this.label5.Location = new System.Drawing.Point(319, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 13);
             this.label5.TabIndex = 13;
@@ -224,7 +224,7 @@
             this.zoomOn.AutoSize = true;
             this.zoomOn.Checked = true;
             this.zoomOn.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.zoomOn.Location = new System.Drawing.Point(302, 132);
+            this.zoomOn.Location = new System.Drawing.Point(312, 138);
             this.zoomOn.Name = "zoomOn";
             this.zoomOn.Size = new System.Drawing.Size(77, 17);
             this.zoomOn.TabIndex = 14;
@@ -236,7 +236,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 257);
+            this.ClientSize = new System.Drawing.Size(431, 257);
             this.Controls.Add(this.zoomOn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.zoom);
